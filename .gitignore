@@ -1,0 +1,17 @@
+# Go build outputs
+bin/
+build/
+
+# Test binaries and coverage
+*.test
+*.out
+coverage.*
+*.prof
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

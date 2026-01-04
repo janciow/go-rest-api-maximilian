@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-test/db"
 	"go-test/models"
 	"net/http"
 
@@ -8,6 +9,7 @@ import (
 )
 
 func main() {
+	db.InitDB()
 	server := gin.Default()
 
 	server.GET("/ping", func(c *gin.Context) {
@@ -24,7 +26,11 @@ func main() {
 }
 
 func getEvents(c *gin.Context) {
-	events := models.GetEvents()
+	events, err := models.GetEvents()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 	c.JSON(http.StatusOK, events)
 }
 
@@ -39,9 +45,12 @@ func createEvent(c *gin.Context) {
 		return
 	}
 
-	event.ID = "123"
 	event.UserID = "user_1"
-	event.Save()
+	err := event.Save()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 	c.JSON(http.StatusCreated, gin.H{"message": "Event created"})
 
 }

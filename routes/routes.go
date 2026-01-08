@@ -1,13 +1,21 @@
 package routes
 
 import (
+	"go-test/internal/handlers"
+	"go-test/internal/repository"
+	"go-test/internal/services"
+
 	"github.com/gin-gonic/gin"
 )
 
 func RegisterRoutes(server *gin.Engine) {
-	server.GET("/events", getEvents)
-	server.GET("/events/:id", getEvent)
-	server.POST("/events", createEvent)
-	server.PUT("/events/:id", updateEvent)
-	server.DELETE("/events/:id", deleteEvent)
+	repo := repository.NewEventRepository()
+	service := services.NewEventService(repo)
+	handler := handlers.NewEventHandler(service)
+
+	server.GET("/events", handler.GetEvents)
+	server.GET("/events/:id", handler.GetEvent)
+	server.POST("/events", handler.CreateEvent)
+	server.PUT("/events/:id", handler.UpdateEvent)
+	server.DELETE("/events/:id", handler.DeleteEvent)
 }

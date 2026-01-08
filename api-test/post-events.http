@@ -1,9 +1,9 @@
-POST http://localhost:8080/events
+POST  http://localhost:8080/events
 Content-Type: application/json  
 
 {
-	"Name" :       "Birthday Party 2026",
-	"Description": "Celebrating John's birthday",
-	"Location" :   "123 Main Street",
+	"Name" :       "Birthday 666 2026",
+	"Description": "Celebrating J66ohn's birthday",
+	"Location" :   "123 Ma66in Street",
 	"Date"   :     "2026-01-15T18:00:00Z"
 }
